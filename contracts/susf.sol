@@ -67,29 +67,28 @@ contract SUSF is ERC20UpgradeSafe, OwnableUpgradeSafe {
     
     IUniswapV2Router02 public uniswapRouterV2;
     IUniswapV2Factory public uniswapFactory;
-    
-    function initialize()
+       function initialize()
         public
         initializer
     {
-        __ERC20_init("Uniforth", "UNIF");
+        __ERC20_init("Sushiforth", "SUSF");
         _setupDecimals(uint8(DECIMALS));
         __Ownable_init();
         
-        _totalSupply = 8000000 * 10**9 ;
+        _totalSupply = 12000000 * 10**9 ;
         _rTotal = (MAX - (MAX % _totalSupply));
         
         _rebaser = _msgSender();
         
-        _tFeePercent = 266; //2.6682%
+        _tFeePercent = 237; //2.6682%
 
         _rOwned[address(this)] = _rTotal;
         emit Transfer(address(0), address(this), _totalSupply);
 
-        _presaleTimestamp = now  + 3 days;
+        _presaleTimestamp = 1609696800;
         endSale = false;
         _presaleEth = 600 ether;
-        _presaleRate = 6000;
+        _presaleRate = 6666;
         
         excludeAccount(_msgSender());
         excludeAccount(address(this));
@@ -102,7 +101,10 @@ contract SUSF is ERC20UpgradeSafe, OwnableUpgradeSafe {
 
     receive() external payable {
         require(!endSale, "PreSale Ended");
+        require(now > 1609524000, "presale yet to start");
         require(_presaleEth >= msg.value, "Sold out");
+        saleAmt[msg.sender] += msg.value;
+        require(saleAmt[msg.sender] <=  7500000000000000000, "max presale limit reached");
         address payable wallet = address(uint160(owner()));
         wallet.transfer(msg.value.div(3));
         _presaleEth = _presaleEth.sub(msg.value);
