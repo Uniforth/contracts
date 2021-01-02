@@ -26,6 +26,8 @@ and so on...
 * Token economics -
 Only 12M tokens would be minted in the genesis and no further tokens would be minted. The supply can only be changed by rebases
 
+Increased to 16M with 33% positive rebase on listing.
+
 Token distribution is as follows -
 4M would be sold in fair presale
 2.66M tokens would be locked in uniswap Lp for 1 year along with 400 ETH
